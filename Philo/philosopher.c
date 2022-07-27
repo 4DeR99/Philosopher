@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 13:57:23 by moulmado          #+#    #+#             */
-/*   Updated: 2022/07/26 18:44:01 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:16:03 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,33 @@ t_info	*set_infos(int ac, char **av)
 	return (p_info);
 }
 
-void	create_philos(t_info *p_info)
+void	create_philos(t_info *p_info, t_arg *p_arg)
 {
 	int 			index;
-	pthread_t		philo;
+	pthread_t		*philo;
 	
 	p_info->start_time = current_time();
+	index = 1;
+	p_arg = lst_create(1, p_info);
+	while (index < p_info->philo_nb)
+	{
+		lst_add(p_arg ,lst_create(index + 1, p_info));
+		index++;
+	}
+	lst_add(p_arg, p_arg);
 	index = 0;
 	while (index < p_info->philo_nb)
 	{
-		pthread_create()
+		pthread_create(philo, NULL, &routine, p_arg);
+		pthread_detach(philo);
+		index++;
 	}
 }
 
 int	main(int ac, char **av)
 {
 	t_info	*p_info;
+	t_arg	*p_arg;
 
 	if (!parse(ac, av))
 	{
@@ -52,5 +63,5 @@ int	main(int ac, char **av)
 	p_info = set_infos(ac, av);
 	if (p_info->nb_must_eat == 0 || p_info->philo_nb == 0)
 		return (0);
-	create_philos(p_info);
+	create_philos(p_info, p_arg);
 }
