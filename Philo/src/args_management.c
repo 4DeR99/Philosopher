@@ -6,31 +6,34 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:34:45 by moulmado          #+#    #+#             */
-/*   Updated: 2022/07/27 14:05:36 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:49:00 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-t_arg	*lst_create(int n, t_info *p_info)
+static t_fork	*fork_create(void)
 {
-	t_arg			*p_arg;
-	pthread_mutex_t	*fork;
-
+	t_fork			*fork;
+	pthread_mutex_t	lock;
 	
-	p_arg = malloc(sizeof(t_arg *));
-	pthread_mutex_init(fork, NULL);
-	p_arg->fork = fork;
-	p_arg->last_time_2_eat = current_time();
-	p_arg->philo_id = n;
-	p_arg->p_info = p_info;
-	p_arg->next = NULL;
-	return (p_arg);
+	pthread_mutex_init(&lock, NULL);
+	fork = malloc(sizeof(t_fork *));
+	fork->inuse = 0;
+	fork->last_user = 0;
+	fork->lock = lock;
+	return (fork);
 }
 
-void	lst_add(t_arg *p_arg, t_arg *_2add)
+t_philo	*lst_create(int n, t_info *p_info)
 {
-	while(p_arg->next)
-		p_arg = p_arg->next;
-	p_arg->next = _2add;
+	t_philo			*philo;
+
+	philo = malloc(sizeof(t_philo *));
+	philo->fork = fork_create();
+	philo->last_time_2_eat = current_time();
+	philo->philo_id = n;
+	philo->p_info = p_info;
+	philo->next = NULL;
+	return (philo);
 }
