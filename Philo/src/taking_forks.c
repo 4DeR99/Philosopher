@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 09:34:14 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/03 16:04:21 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:32:58 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ short	fork_istaken(t_philo *philo)
 short	is_last_user(t_philo *philo)
 {
 	if (philo->philo_id == philo->fork->last_user
-		&& philo->philo_id == philo->next->fork->last_user)
+		|| philo->philo_id == philo->next->fork->last_user)
 		return (1);
 	return (0);
 }
@@ -30,9 +30,9 @@ void	take_forks(t_philo *philo)
 	philo->fork->last_user = philo->philo_id;
 	philo->next->fork->last_user = philo->philo_id;
 	philo->fork->inuse = 1;
-	msg_output(philo, "has taken a fork");
+	msg_output(philo, "has taken a fork", 0);
 	philo->next->fork->inuse = 1;
-	msg_output(philo, "has taken a fork");
+	msg_output(philo, "has taken a fork", 0);
 }
 
 static short	try_taking_fork(t_philo *philo)

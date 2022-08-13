@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 10:41:35 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/03 14:58:20 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:42:51 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 
 static void	confirme_death(t_philo *philo)
 {
-	short	starving;
+	unsigned int	starving;
 
-	pthread_mutex_lock(&philo->death_check);
-	starving = current_time() - philo->p_info->start_time;
-	if (starving > philo->p_info->time_2_die)
-	{
-		msg_output(philo, "is ded");
-		philo->p_info->end = 1;
-	}
-	pthread_mutex_unlock(&philo->death_check);
+	starving = current_time() - philo->last_time_2_eat;
+	if (starving > philo->p_info->time_2_die && !philo->p_info->end)
+		msg_output(philo, "died", 1);
 }
 
 void	*death_watcher(void	*arg)
@@ -36,7 +31,7 @@ void	*death_watcher(void	*arg)
 		if (philo->p_info->eat_goal == philo->p_info->philo_nb)
 		{
 			philo->p_info->end = 1;
-			return (NULL);
+			pthread_mutex_lock(&philo->p_info->printing);
 		}
 		confirme_death(philo);
 		usleep(WAIT_TIME);

@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_state_change.c                               :+:      :+:    :+:   */
+/*   putstr_fd_x.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/30 13:03:47 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/11 12:39:44 by moulmado         ###   ########.fr       */
+/*   Created: 2022/08/13 13:34:17 by moulmado          #+#    #+#             */
+/*   Updated: 2022/08/13 13:36:18 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	msg_output(t_philo *philo, char	*status, short ded)
+void	putchar_fd_x(int c, int fd)
 {
-	if (!philo->p_info->end)
-	{
-		pthread_mutex_lock(&philo->p_info->printing);
-		printf("%i %i %s\n", current_time() - philo->p_info->start_time,
-			philo->philo_id, status);
-		if (ded)
-			philo->p_info->end = 1;
-		else
-			pthread_mutex_unlock(&philo->p_info->printing);
-	}
+	write(fd, &c, 1);
+}
+
+void	putstr_fd_x(char *s, int fd)
+{
+	int index;
+
+	index = 0;
+	while (s[index])
+		putchar_fd_x(s[index++], fd);
 }

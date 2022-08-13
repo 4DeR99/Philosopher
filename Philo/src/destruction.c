@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_state_change.c                               :+:      :+:    :+:   */
+/*   destruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/30 13:03:47 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/11 12:39:44 by moulmado         ###   ########.fr       */
+/*   Created: 2022/08/13 10:46:27 by moulmado          #+#    #+#             */
+/*   Updated: 2022/08/13 14:01:54 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	msg_output(t_philo *philo, char	*status, short ded)
+void	destruction(t_philo *philo, t_info *inf)
 {
-	if (!philo->p_info->end)
+	t_philo	*tmp;
+	short	limit;
+
+	limit = 0;
+	printf("%d\n", inf->philo_nb);
+	if (philo)
 	{
-		pthread_mutex_lock(&philo->p_info->printing);
-		printf("%i %i %s\n", current_time() - philo->p_info->start_time,
-			philo->philo_id, status);
-		if (ded)
-			philo->p_info->end = 1;
-		else
-			pthread_mutex_unlock(&philo->p_info->printing);
+		while (limit < inf->philo_nb)
+		{
+			tmp = philo;
+			philo = philo->next;
+			pthread_mutex_destroy(&tmp->fork->lock);
+			free(tmp->fork);
+			free(tmp);
+			printf("asd\n");
+		}
+	}
+	if (inf)
+	{
+		pthread_mutex_destroy(&inf->printing);
+		free(inf);
 	}
 }

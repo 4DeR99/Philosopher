@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 14:05:11 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/03 15:59:59 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:21:04 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	parse(int ac, char **av)
 	return (1);
 }
 
-int	current_time(void)
+unsigned int	current_time(void)
 {
 	struct timeval	t;
 
@@ -75,14 +75,11 @@ int	current_time(void)
 	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 }
 
-void	usleep_x(short sleep_time_micro)
+void	usleep_x(unsigned int sleep_time)
 {
-	short	x;
+	unsigned int	x;
 
-	x = sleep_time_micro / 100;
-	while (x)
-	{
-		usleep(100);
-		x--;
-	}
+	x = current_time();
+	while (x + sleep_time > current_time())
+		usleep(10);
 }
