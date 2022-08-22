@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 13:57:55 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/13 13:36:37 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:36:03 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ unsigned int	current_time(void);
 void			usleep_x(unsigned int sleep_time);
 
 //tools
-void	*lyfe_cycle(void *arg);
-void	*death_watcher(void	*arg);
-void	msg_output(t_philo *philo, char *status, short ded);
-void	prepare_2_eat(t_philo *philo);
-void	putstr_fd_x(char *s, int fd);
-void	putchar_fd_x(int c, int fd);
+void			*lyfe_cycle(void *arg);
+void			*death_watcher(void	*arg);
+void			msg_output(t_philo *philo, char *status, short ded);
+void			prepare_2_eat(t_philo *philo);
+void			putstr_fd_x(char *s, int fd);
+void			putchar_fd_x(int c, int fd);
 
 //args_management
-int		ft_atoi(const char *s);
-int		parse(int ac, char **av);
-t_philo	*lst_create(int n, t_info *p_info);
-void	destruction(t_philo *philo, t_info *inf);
-t_philo	*ascending_philos(t_info *p_info);
+int				ft_atoi(const char *s);
+int				parse(int ac, char **av);
+t_philo			*lst_create(int n, t_info *p_info);
+void			destruction(t_philo *philo, t_info *inf);
+t_philo			*ascending_philos(t_info *p_info);
 
 #endif

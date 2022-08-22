@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:17 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/13 13:36:18 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:36:20 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	putchar_fd_x(int c, int fd)
 
 void	putstr_fd_x(char *s, int fd)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (s[index])

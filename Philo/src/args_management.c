@@ -6,7 +6,7 @@
 /*   By: moulmado <moulmado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:34:45 by moulmado          #+#    #+#             */
-/*   Updated: 2022/08/13 13:45:21 by moulmado         ###   ########.fr       */
+/*   Updated: 2022/08/22 12:33:18 by moulmado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_fork	*fork_create(void)
 {
 	t_fork			*fork;
 	pthread_mutex_t	lock;
-	
+
 	if (pthread_mutex_init(&lock, NULL))
 		return (putstr_fd_x("Failled to initate mutex\n", 2), NULL);
 	fork = malloc(sizeof(t_fork));
@@ -47,7 +47,7 @@ t_philo	*lst_create(int n, t_info *p_info)
 
 t_philo	*ascending_philos(t_info *p_info)
 {
-	short 	index;
+	short	index;
 	t_philo	*node;
 	t_philo	*philo;
 
